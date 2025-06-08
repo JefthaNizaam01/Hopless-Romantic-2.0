@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Heart, Upload, Star } from "lucide-react";
+import { Heart, Upload, Star, Sparkles, MessageCircle, BookHeart, Coffee, Music, Mail } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const romanticPreferences = [
@@ -14,7 +14,11 @@ const romanticPreferences = [
   "Coffee shop dates", "Beach picnics", "Mountain hikes", "Jazz music", "Slow dancing"
 ];
 
-export const ProfileCreation = () => {
+interface ProfileCreationProps {
+  onSectionChange?: (section: string) => void;
+}
+
+export const ProfileCreation = ({ onSectionChange }: ProfileCreationProps) => {
   const [formData, setFormData] = useState({
     name: "",
     age: "",
@@ -53,6 +57,58 @@ export const ProfileCreation = () => {
       description: "Your romantic profile has been created beautifully.",
     });
   };
+
+  const specialFeatures = [
+    {
+      id: 'quiz',
+      title: 'Love Language Quiz',
+      description: 'Discover your love language',
+      icon: <Heart className="w-6 h-6" />,
+      color: 'from-red-500 to-pink-500'
+    },
+    {
+      id: 'conversations',
+      title: 'Deep Conversations',
+      description: 'Meaningful connection starters',
+      icon: <MessageCircle className="w-6 h-6" />,
+      color: 'from-purple-500 to-indigo-500'
+    },
+    {
+      id: 'poetry',
+      title: 'Poetry Duets',
+      description: 'Write poems together',
+      icon: <BookHeart className="w-6 h-6" />,
+      color: 'from-pink-500 to-rose-500'
+    },
+    {
+      id: 'connections',
+      title: 'Connection Meter',
+      description: 'Measure your compatibility',
+      icon: <Coffee className="w-6 h-6" />,
+      color: 'from-amber-500 to-orange-500'
+    },
+    {
+      id: 'secret-admirer',
+      title: 'Secret Admirer Notes',
+      description: 'Send anonymous love notes',
+      icon: <Sparkles className="w-6 h-6" />,
+      color: 'from-violet-500 to-purple-500'
+    },
+    {
+      id: 'vibe-playlists',
+      title: 'VibePlaylists',
+      description: 'Create music connections',
+      icon: <Music className="w-6 h-6" />,
+      color: 'from-green-500 to-teal-500'
+    },
+    {
+      id: 'love-letters',
+      title: 'Daily Love Letters',
+      description: 'Romantic daily inspiration',
+      icon: <Mail className="w-6 h-6" />,
+      color: 'from-red-500 to-rose-500'
+    }
+  ];
 
   return (
     <div className="min-h-screen p-6 flex justify-center">
@@ -184,6 +240,38 @@ export const ProfileCreation = () => {
                 <Heart className="w-5 h-5 mr-2" />
                 Save My Romantic Profile
               </Button>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Special Features Section */}
+        <Card className="romantic-glow border-primary/20">
+          <CardHeader className="text-center">
+            <div className="w-16 h-16 romantic-gradient rounded-full flex items-center justify-center mx-auto mb-4">
+              <Sparkles className="w-8 h-8 text-white" />
+            </div>
+            <CardTitle className="text-2xl font-playfair">Personalize Your Experience ✨</CardTitle>
+            <CardDescription className="text-lg">
+              Discover special features to enhance your romantic journey
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {specialFeatures.map((feature) => (
+                <Card 
+                  key={feature.id}
+                  className="cursor-pointer hover:romantic-glow transition-all duration-300 hover:scale-105 border-primary/20"
+                  onClick={() => onSectionChange?.(feature.id)}
+                >
+                  <CardContent className="p-4 text-center">
+                    <div className={`w-12 h-12 bg-gradient-to-r ${feature.color} rounded-full flex items-center justify-center mx-auto mb-3 text-white`}>
+                      {feature.icon}
+                    </div>
+                    <h3 className="font-playfair font-semibold mb-2 text-sm">{feature.title}</h3>
+                    <p className="text-xs text-muted-foreground">{feature.description}</p>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
           </CardContent>
         </Card>
