@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Heart, Users, MessageCircle, Calendar, User, BookHeart, Coffee } from "lucide-react";
+import { Heart, Users, MessageCircle, Calendar, User, BookHeart, Coffee, Music, Mail, Sparkles } from "lucide-react";
 
 interface NavigationProps {
   activeSection: string;
@@ -51,15 +51,15 @@ export const Navigation = ({ activeSection, onSectionChange }: NavigationProps) 
           </Button>
 
           <Button
-            onClick={() => onSectionChange('events')}
-            variant={activeSection === 'events' ? 'default' : 'ghost'}
+            onClick={() => onSectionChange('special')}
+            variant={activeSection === 'special' ? 'default' : 'ghost'}
             size="sm"
             className={`flex flex-col gap-1 h-auto py-2 ${
-              activeSection === 'events' ? 'romantic-gradient text-white' : ''
+              activeSection === 'special' ? 'romantic-gradient text-white' : ''
             }`}
           >
-            <Calendar className="w-5 h-5" />
-            <span className="text-xs">Events</span>
+            <Sparkles className="w-5 h-5" />
+            <span className="text-xs">Special</span>
           </Button>
 
           <Button
@@ -175,6 +175,39 @@ export const DesktopNavigation = ({ activeSection, onSectionChange }: Navigation
             >
               <Coffee className="w-5 h-5 mr-3" />
               Connection Meter
+            </Button>
+
+            <Button
+              onClick={() => onSectionChange('secret-admirer')}
+              variant={activeSection === 'secret-admirer' ? 'default' : 'ghost'}
+              className={`w-full justify-start ${
+                activeSection === 'secret-admirer' ? 'romantic-gradient text-white' : ''
+              }`}
+            >
+              <Sparkles className="w-5 h-5 mr-3" />
+              Secret Admirer Notes
+            </Button>
+
+            <Button
+              onClick={() => onSectionChange('vibe-playlists')}
+              variant={activeSection === 'vibe-playlists' ? 'default' : 'ghost'}
+              className={`w-full justify-start ${
+                activeSection === 'vibe-playlists' ? 'romantic-gradient text-white' : ''
+              }`}
+            >
+              <Music className="w-5 h-5 mr-3" />
+              VibePlaylists
+            </Button>
+
+            <Button
+              onClick={() => onSectionChange('love-letters')}
+              variant={activeSection === 'love-letters' ? 'default' : 'ghost'}
+              className={`w-full justify-start ${
+                activeSection === 'love-letters' ? 'romantic-gradient text-white' : ''
+              }`}
+            >
+              <Mail className="w-5 h-5 mr-3" />
+              Daily Love Letters
             </Button>
           </div>
 

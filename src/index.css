@@ -16,7 +16,7 @@
     --popover: 255 255 255;
     --popover-foreground: 48 32 32;
 
-    --primary: 190 18 60; /* Deep romantic rose */
+    --primary: 220 38 127; /* Deep romantic rose - more vibrant */
     --primary-foreground: 254 252 248;
 
     --secondary: 254 242 242; /* Soft blush */
@@ -33,7 +33,7 @@
 
     --border: 244 212 212;
     --input: 244 212 212;
-    --ring: 190 18 60;
+    --ring: 220 38 127;
 
     --radius: 0.5rem;
 
@@ -42,6 +42,7 @@
     --romantic-burgundy: 128 0 32;
     --romantic-blush: 255 182 193;
     --romantic-cream: 255 253 250;
+    --romantic-deep-red: 139 0 0;
   }
 
   .dark {
@@ -91,11 +92,11 @@
 
 @layer utilities {
   .romantic-gradient {
-    background: linear-gradient(135deg, rgb(190 18 60) 0%, rgb(236 72 153) 100%);
+    background: linear-gradient(135deg, rgb(220 38 127) 0%, rgb(236 72 153) 50%, rgb(220 20 60) 100%);
   }
   
   .romantic-glow {
-    box-shadow: 0 0 20px rgba(236, 72, 153, 0.3);
+    box-shadow: 0 0 30px rgba(236, 72, 153, 0.4), 0 0 60px rgba(220, 38, 127, 0.2);
   }
   
   .heartbeat {
@@ -103,8 +104,14 @@
   }
   
   @keyframes heartbeat {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
+    0%, 100% { 
+      transform: scale(1); 
+      filter: drop-shadow(0 0 10px rgba(236, 72, 153, 0.3));
+    }
+    50% { 
+      transform: scale(1.05); 
+      filter: drop-shadow(0 0 20px rgba(236, 72, 153, 0.6));
+    }
   }
   
   .romantic-shimmer {
@@ -116,5 +123,45 @@
   @keyframes shimmer {
     0% { background-position: -200% -200%; }
     100% { background-position: 200% 200%; }
+  }
+
+  @keyframes romantic-pulse {
+    0%, 100% { 
+      opacity: 1; 
+      transform: scale(1);
+      filter: drop-shadow(0 0 15px rgba(255, 182, 193, 0.4));
+    }
+    50% { 
+      opacity: 0.8; 
+      transform: scale(1.02);
+      filter: drop-shadow(0 0 25px rgba(255, 182, 193, 0.6));
+    }
+  }
+
+  .romantic-text-glow {
+    text-shadow: 0 0 10px rgba(236, 72, 153, 0.3);
+  }
+
+  /* Enhanced romantic animations */
+  .float-hearts::before {
+    content: '💕';
+    position: absolute;
+    animation: float-up 3s ease-in-out infinite;
+    opacity: 0;
+  }
+
+  @keyframes float-up {
+    0% {
+      opacity: 1;
+      transform: translateY(0px) rotate(0deg);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-100px) rotate(180deg);
+    }
+  }
+
+  .rose-glow {
+    box-shadow: 0 0 20px rgba(220, 20, 60, 0.3);
   }
 }

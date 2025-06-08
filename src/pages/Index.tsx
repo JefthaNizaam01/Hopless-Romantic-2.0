@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Heart, Users, MessageCircle, BookHeart, Calendar, Coffee } from "lucide-react";
+import { Heart, Users, MessageCircle, BookHeart, Calendar, Coffee, Sparkles, Music, Mail } from "lucide-react";
 import { LoveLanguageQuiz } from "@/components/LoveLanguageQuiz";
 import { ProfileCreation } from "@/components/ProfileCreation";
 import { DeepConversations } from "@/components/DeepConversations";
@@ -12,10 +12,14 @@ import { Discovery } from "@/components/Discovery";
 import { Matches } from "@/components/Matches";
 import { Messages } from "@/components/Messages";
 import { Events } from "@/components/Events";
+import { SecretAdmirerNotes } from "@/components/SecretAdmirerNotes";
+import { VibePlaylists } from "@/components/VibePlaylists";
+import { DailyLoveLetters } from "@/components/DailyLoveLetters";
+import { SpecialFeatures } from "@/components/SpecialFeatures";
 import { Navigation, DesktopNavigation } from "@/components/Navigation";
 
 const Index = () => {
-  const [activeSection, setActiveSection] = useState<string>('discovery');
+  const [activeSection, setActiveSection] = useState<string>('home');
   const [userLevel, setUserLevel] = useState<'loverboy' | 'lovergirl' | null>('lovergirl'); // Set default for demo
 
   const renderActiveSection = () => {
@@ -38,6 +42,14 @@ const Index = () => {
         return <PoetryDuets />;
       case 'connections':
         return <ConnectionMeter />;
+      case 'secret-admirer':
+        return <SecretAdmirerNotes />;
+      case 'vibe-playlists':
+        return <VibePlaylists />;
+      case 'love-letters':
+        return <DailyLoveLetters />;
+      case 'special':
+        return <SpecialFeatures onSectionChange={setActiveSection} />;
       default:
         return <HeroSection />;
     }
@@ -91,6 +103,7 @@ const Index = () => {
               Welcome, beautiful {userLevel}! ✨
             </h2>
             
+            {/* Main Features */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
               <FeatureCard
                 icon={<Heart className="w-6 h-6 md:w-8 md:h-8" />}
@@ -116,6 +129,49 @@ const Index = () => {
                 description="Magical gatherings"
                 onClick={() => setActiveSection('events')}
               />
+            </div>
+
+            {/* Special Features for Mobile */}
+            <div className="md:hidden mb-6">
+              <Card className="romantic-glow border-primary/20">
+                <CardHeader>
+                  <CardTitle className="font-playfair text-lg">Special Features ✨</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-2 gap-3">
+                    <FeatureCard
+                      icon={<Heart className="w-6 h-6" />}
+                      title="Love Quiz"
+                      description="Discover your language"
+                      onClick={() => setActiveSection('quiz')}
+                    />
+                    <FeatureCard
+                      icon={<MessageCircle className="w-6 h-6" />}
+                      title="Deep Talks"
+                      description="Meaningful conversations"
+                      onClick={() => setActiveSection('conversations')}
+                    />
+                    <FeatureCard
+                      icon={<BookHeart className="w-6 h-6" />}
+                      title="Poetry"
+                      description="Write together"
+                      onClick={() => setActiveSection('poetry')}
+                    />
+                    <FeatureCard
+                      icon={<Sparkles className="w-6 h-6" />}
+                      title="Secret Notes"
+                      description="Anonymous admirer"
+                      onClick={() => setActiveSection('secret-admirer')}
+                    />
+                  </div>
+                  <Button 
+                    onClick={() => setActiveSection('special')}
+                    className="w-full mt-4 romantic-gradient text-white"
+                  >
+                    View All Special Features
+                  </Button>
+                </CardContent>
+              </Card>
             </div>
 
             <Button 
