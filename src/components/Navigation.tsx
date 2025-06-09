@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -10,15 +11,15 @@ interface NavigationProps {
 
 export const Navigation = ({ activeSection, onSectionChange }: NavigationProps) => {
   return (
-    <Card className="fixed bottom-0 left-0 right-0 z-50 rounded-none border-t professional-border bg-white md:hidden">
-      <CardContent className="p-3">
+    <Card className="fixed bottom-0 left-0 right-0 z-50 rounded-none border-t-2 border-primary/20 bg-background/95 backdrop-blur-sm md:hidden">
+      <CardContent className="p-2">
         <div className="flex justify-around items-center">
           <Button
             onClick={() => onSectionChange('discovery')}
             variant={activeSection === 'discovery' ? 'default' : 'ghost'}
             size="sm"
-            className={`flex flex-col gap-1 h-auto py-2 px-3 professional-focus ${
-              activeSection === 'discovery' ? 'professional-gradient text-white' : 'text-muted-foreground hover:text-foreground'
+            className={`flex flex-col gap-1 h-auto py-2 ${
+              activeSection === 'discovery' ? 'romantic-gradient text-white' : ''
             }`}
           >
             <Heart className="w-5 h-5" />
@@ -29,8 +30,8 @@ export const Navigation = ({ activeSection, onSectionChange }: NavigationProps) 
             onClick={() => onSectionChange('matches')}
             variant={activeSection === 'matches' ? 'default' : 'ghost'}
             size="sm"
-            className={`flex flex-col gap-1 h-auto py-2 px-3 professional-focus ${
-              activeSection === 'matches' ? 'professional-gradient text-white' : 'text-muted-foreground hover:text-foreground'
+            className={`flex flex-col gap-1 h-auto py-2 ${
+              activeSection === 'matches' ? 'romantic-gradient text-white' : ''
             }`}
           >
             <Users className="w-5 h-5" />
@@ -41,8 +42,8 @@ export const Navigation = ({ activeSection, onSectionChange }: NavigationProps) 
             onClick={() => onSectionChange('messages')}
             variant={activeSection === 'messages' ? 'default' : 'ghost'}
             size="sm"
-            className={`flex flex-col gap-1 h-auto py-2 px-3 professional-focus ${
-              activeSection === 'messages' ? 'professional-gradient text-white' : 'text-muted-foreground hover:text-foreground'
+            className={`flex flex-col gap-1 h-auto py-2 ${
+              activeSection === 'messages' ? 'romantic-gradient text-white' : ''
             }`}
           >
             <MessageCircle className="w-5 h-5" />
@@ -53,8 +54,8 @@ export const Navigation = ({ activeSection, onSectionChange }: NavigationProps) 
             onClick={() => onSectionChange('special')}
             variant={activeSection === 'special' ? 'default' : 'ghost'}
             size="sm"
-            className={`flex flex-col gap-1 h-auto py-2 px-3 professional-focus ${
-              activeSection === 'special' ? 'professional-gradient text-white' : 'text-muted-foreground hover:text-foreground'
+            className={`flex flex-col gap-1 h-auto py-2 ${
+              activeSection === 'special' ? 'romantic-gradient text-white' : ''
             }`}
           >
             <Sparkles className="w-5 h-5" />
@@ -65,8 +66,8 @@ export const Navigation = ({ activeSection, onSectionChange }: NavigationProps) 
             onClick={() => onSectionChange('profile')}
             variant={activeSection === 'profile' ? 'default' : 'ghost'}
             size="sm"
-            className={`flex flex-col gap-1 h-auto py-2 px-3 professional-focus ${
-              activeSection === 'profile' ? 'professional-gradient text-white' : 'text-muted-foreground hover:text-foreground'
+            className={`flex flex-col gap-1 h-auto py-2 ${
+              activeSection === 'profile' ? 'romantic-gradient text-white' : ''
             }`}
           >
             <User className="w-5 h-5" />
@@ -80,14 +81,14 @@ export const Navigation = ({ activeSection, onSectionChange }: NavigationProps) 
 
 export const DesktopNavigation = ({ activeSection, onSectionChange }: NavigationProps) => {
   return (
-    <Card className="hidden md:block w-64 h-full professional-shadow professional-border">
+    <Card className="hidden md:block w-64 h-full">
       <CardContent className="p-6">
-        <div className="space-y-1">
+        <div className="space-y-2">
           <Button
             onClick={() => onSectionChange('discovery')}
             variant={activeSection === 'discovery' ? 'default' : 'ghost'}
-            className={`w-full justify-start professional-focus ${
-              activeSection === 'discovery' ? 'professional-gradient text-white' : 'text-muted-foreground hover:text-foreground hover:bg-gray-50'
+            className={`w-full justify-start ${
+              activeSection === 'discovery' ? 'romantic-gradient text-white' : ''
             }`}
           >
             <Heart className="w-5 h-5 mr-3" />
@@ -97,8 +98,8 @@ export const DesktopNavigation = ({ activeSection, onSectionChange }: Navigation
           <Button
             onClick={() => onSectionChange('matches')}
             variant={activeSection === 'matches' ? 'default' : 'ghost'}
-            className={`w-full justify-start professional-focus ${
-              activeSection === 'matches' ? 'professional-gradient text-white' : 'text-muted-foreground hover:text-foreground hover:bg-gray-50'
+            className={`w-full justify-start ${
+              activeSection === 'matches' ? 'romantic-gradient text-white' : ''
             }`}
           >
             <Users className="w-5 h-5 mr-3" />
@@ -108,8 +109,8 @@ export const DesktopNavigation = ({ activeSection, onSectionChange }: Navigation
           <Button
             onClick={() => onSectionChange('messages')}
             variant={activeSection === 'messages' ? 'default' : 'ghost'}
-            className={`w-full justify-start professional-focus ${
-              activeSection === 'messages' ? 'professional-gradient text-white' : 'text-muted-foreground hover:text-foreground hover:bg-gray-50'
+            className={`w-full justify-start ${
+              activeSection === 'messages' ? 'romantic-gradient text-white' : ''
             }`}
           >
             <MessageCircle className="w-5 h-5 mr-3" />
@@ -119,8 +120,8 @@ export const DesktopNavigation = ({ activeSection, onSectionChange }: Navigation
           <Button
             onClick={() => onSectionChange('events')}
             variant={activeSection === 'events' ? 'default' : 'ghost'}
-            className={`w-full justify-start professional-focus ${
-              activeSection === 'events' ? 'professional-gradient text-white' : 'text-muted-foreground hover:text-foreground hover:bg-gray-50'
+            className={`w-full justify-start ${
+              activeSection === 'events' ? 'romantic-gradient text-white' : ''
             }`}
           >
             <Calendar className="w-5 h-5 mr-3" />
@@ -128,15 +129,15 @@ export const DesktopNavigation = ({ activeSection, onSectionChange }: Navigation
           </Button>
 
           <div className="border-t pt-4 mt-4">
-            <h3 className="font-semibold mb-3 text-sm text-muted-foreground uppercase tracking-wide">
-              Special Features
+            <h3 className="font-playfair font-semibold mb-2 text-sm text-muted-foreground">
+              SPECIAL FEATURES
             </h3>
             
             <Button
               onClick={() => onSectionChange('quiz')}
               variant={activeSection === 'quiz' ? 'default' : 'ghost'}
-              className={`w-full justify-start professional-focus ${
-                activeSection === 'quiz' ? 'professional-gradient text-white' : 'text-muted-foreground hover:text-foreground hover:bg-gray-50'
+              className={`w-full justify-start ${
+                activeSection === 'quiz' ? 'romantic-gradient text-white' : ''
               }`}
             >
               <Heart className="w-5 h-5 mr-3" />
@@ -146,8 +147,8 @@ export const DesktopNavigation = ({ activeSection, onSectionChange }: Navigation
             <Button
               onClick={() => onSectionChange('conversations')}
               variant={activeSection === 'conversations' ? 'default' : 'ghost'}
-              className={`w-full justify-start professional-focus ${
-                activeSection === 'conversations' ? 'professional-gradient text-white' : 'text-muted-foreground hover:text-foreground hover:bg-gray-50'
+              className={`w-full justify-start ${
+                activeSection === 'conversations' ? 'romantic-gradient text-white' : ''
               }`}
             >
               <MessageCircle className="w-5 h-5 mr-3" />
@@ -157,8 +158,8 @@ export const DesktopNavigation = ({ activeSection, onSectionChange }: Navigation
             <Button
               onClick={() => onSectionChange('poetry')}
               variant={activeSection === 'poetry' ? 'default' : 'ghost'}
-              className={`w-full justify-start professional-focus ${
-                activeSection === 'poetry' ? 'professional-gradient text-white' : 'text-muted-foreground hover:text-foreground hover:bg-gray-50'
+              className={`w-full justify-start ${
+                activeSection === 'poetry' ? 'romantic-gradient text-white' : ''
               }`}
             >
               <BookHeart className="w-5 h-5 mr-3" />
@@ -168,8 +169,8 @@ export const DesktopNavigation = ({ activeSection, onSectionChange }: Navigation
             <Button
               onClick={() => onSectionChange('connections')}
               variant={activeSection === 'connections' ? 'default' : 'ghost'}
-              className={`w-full justify-start professional-focus ${
-                activeSection === 'connections' ? 'professional-gradient text-white' : 'text-muted-foreground hover:text-foreground hover:bg-gray-50'
+              className={`w-full justify-start ${
+                activeSection === 'connections' ? 'romantic-gradient text-white' : ''
               }`}
             >
               <Coffee className="w-5 h-5 mr-3" />
@@ -179,8 +180,8 @@ export const DesktopNavigation = ({ activeSection, onSectionChange }: Navigation
             <Button
               onClick={() => onSectionChange('secret-admirer')}
               variant={activeSection === 'secret-admirer' ? 'default' : 'ghost'}
-              className={`w-full justify-start professional-focus ${
-                activeSection === 'secret-admirer' ? 'professional-gradient text-white' : 'text-muted-foreground hover:text-foreground hover:bg-gray-50'
+              className={`w-full justify-start ${
+                activeSection === 'secret-admirer' ? 'romantic-gradient text-white' : ''
               }`}
             >
               <Sparkles className="w-5 h-5 mr-3" />
@@ -190,8 +191,8 @@ export const DesktopNavigation = ({ activeSection, onSectionChange }: Navigation
             <Button
               onClick={() => onSectionChange('vibe-playlists')}
               variant={activeSection === 'vibe-playlists' ? 'default' : 'ghost'}
-              className={`w-full justify-start professional-focus ${
-                activeSection === 'vibe-playlists' ? 'professional-gradient text-white' : 'text-muted-foreground hover:text-foreground hover:bg-gray-50'
+              className={`w-full justify-start ${
+                activeSection === 'vibe-playlists' ? 'romantic-gradient text-white' : ''
               }`}
             >
               <Music className="w-5 h-5 mr-3" />
@@ -201,8 +202,8 @@ export const DesktopNavigation = ({ activeSection, onSectionChange }: Navigation
             <Button
               onClick={() => onSectionChange('love-letters')}
               variant={activeSection === 'love-letters' ? 'default' : 'ghost'}
-              className={`w-full justify-start professional-focus ${
-                activeSection === 'love-letters' ? 'professional-gradient text-white' : 'text-muted-foreground hover:text-foreground hover:bg-gray-50'
+              className={`w-full justify-start ${
+                activeSection === 'love-letters' ? 'romantic-gradient text-white' : ''
               }`}
             >
               <Mail className="w-5 h-5 mr-3" />
@@ -214,8 +215,8 @@ export const DesktopNavigation = ({ activeSection, onSectionChange }: Navigation
             <Button
               onClick={() => onSectionChange('profile')}
               variant={activeSection === 'profile' ? 'default' : 'ghost'}
-              className={`w-full justify-start professional-focus ${
-                activeSection === 'profile' ? 'professional-gradient text-white' : 'text-muted-foreground hover:text-foreground hover:bg-gray-50'
+              className={`w-full justify-start ${
+                activeSection === 'profile' ? 'romantic-gradient text-white' : ''
               }`}
             >
               <User className="w-5 h-5 mr-3" />
