@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Heart, Upload, Star } from "lucide-react";
+import { Heart, Upload, User } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const romanticPreferences = [
@@ -49,94 +49,102 @@ export const ProfileCreation = () => {
     }
 
     toast({
-      title: "Profile Saved! 💕",
-      description: "Your romantic profile has been created beautifully.",
+      title: "Profile Saved Successfully",
+      description: "Your profile has been created and saved.",
     });
   };
 
   return (
-    <div className="min-h-screen p-6 flex justify-center">
-      <div className="max-w-4xl w-full space-y-6">
-        <Card className="romantic-glow">
-          <CardHeader>
-            <CardTitle className="text-3xl font-playfair text-center">Create Your Romantic Profile</CardTitle>
-            <CardDescription className="text-center text-lg">
-              Let your authentic self shine through and attract your perfect match
+    <div className="min-h-screen bg-gray-50 p-6">
+      <div className="max-w-4xl mx-auto space-y-6">
+        <Card className="professional-shadow-lg professional-border">
+          <CardHeader className="text-center border-b bg-white">
+            <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
+              <User className="w-8 h-8 text-white" />
+            </div>
+            <CardTitle className="text-2xl font-semibold text-foreground">Create Your Profile</CardTitle>
+            <CardDescription className="text-muted-foreground">
+              Complete your profile information to get started
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-6">
+          <CardContent className="p-8 bg-white space-y-8">
             {/* Basic Information */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-2">
-                <Label htmlFor="name" className="text-lg">Name</Label>
-                <Input
-                  id="name"
-                  value={formData.name}
-                  onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-                  placeholder="Your beautiful name"
-                  className="text-lg p-3"
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="age" className="text-lg">Age</Label>
-                <Input
-                  id="age"
-                  type="number"
-                  value={formData.age}
-                  onChange={(e) => setFormData(prev => ({ ...prev, age: e.target.value }))}
-                  placeholder="Your age"
-                  className="text-lg p-3"
-                />
+            <div className="space-y-6">
+              <h3 className="text-lg font-semibold text-foreground border-b pb-2">Basic Information</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <Label htmlFor="name" className="text-sm font-medium text-foreground">Full Name</Label>
+                  <Input
+                    id="name"
+                    value={formData.name}
+                    onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+                    placeholder="Enter your full name"
+                    className="professional-focus"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="age" className="text-sm font-medium text-foreground">Age</Label>
+                  <Input
+                    id="age"
+                    type="number"
+                    value={formData.age}
+                    onChange={(e) => setFormData(prev => ({ ...prev, age: e.target.value }))}
+                    placeholder="Enter your age"
+                    className="professional-focus"
+                  />
+                </div>
               </div>
             </div>
 
             {/* Photo Upload */}
-            <div className="space-y-2">
-              <Label className="text-lg">Profile Photos</Label>
-              <div className="border-2 border-dashed border-muted rounded-lg p-8 text-center hover:border-primary transition-colors">
-                <Upload className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-                <p className="text-muted-foreground">Upload your most genuine photos</p>
-                <Button variant="outline" className="mt-4">Choose Photos</Button>
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold text-foreground border-b pb-2">Profile Photo</h3>
+              <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center bg-gray-50 hover:bg-gray-100 transition-colors">
+                <Upload className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                <p className="text-muted-foreground mb-4">Upload your profile photo</p>
+                <Button variant="outline" className="professional-focus">Choose File</Button>
               </div>
             </div>
 
-            {/* Bio */}
-            <div className="space-y-2">
-              <Label htmlFor="bio" className="text-lg">About You</Label>
-              <Textarea
-                id="bio"
-                value={formData.bio}
-                onChange={(e) => setFormData(prev => ({ ...prev, bio: e.target.value }))}
-                placeholder="Share your story, dreams, and what makes your heart skip a beat..."
-                className="min-h-[120px] text-lg p-3"
-              />
-            </div>
-
-            {/* Why are you here? */}
-            <div className="space-y-2">
-              <Label htmlFor="whyHere" className="text-lg">Why are you here?</Label>
-              <Textarea
-                id="whyHere"
-                value={formData.whyHere}
-                onChange={(e) => setFormData(prev => ({ ...prev, whyHere: e.target.value }))}
-                placeholder="Share your intentions and what you're looking for in love..."
-                className="min-h-[100px] text-lg p-3"
-              />
-            </div>
-
-            {/* Romantic Preferences */}
+            {/* About Section */}
             <div className="space-y-4">
-              <Label className="text-lg">Your Romantic Preferences</Label>
+              <h3 className="text-lg font-semibold text-foreground border-b pb-2">About You</h3>
+              <div className="space-y-2">
+                <Label htmlFor="bio" className="text-sm font-medium text-foreground">Biography</Label>
+                <Textarea
+                  id="bio"
+                  value={formData.bio}
+                  onChange={(e) => setFormData(prev => ({ ...prev, bio: e.target.value }))}
+                  placeholder="Tell us about yourself, your interests, and what you're looking for..."
+                  className="min-h-[120px] professional-focus"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="whyHere" className="text-sm font-medium text-foreground">Why are you here?</Label>
+                <Textarea
+                  id="whyHere"
+                  value={formData.whyHere}
+                  onChange={(e) => setFormData(prev => ({ ...prev, whyHere: e.target.value }))}
+                  placeholder="Share your intentions and what you're looking for..."
+                  className="min-h-[100px] professional-focus"
+                />
+              </div>
+            </div>
+
+            {/* Preferences */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold text-foreground border-b pb-2">Interests & Preferences</h3>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
                 {romanticPreferences.map((preference) => (
                   <Button
                     key={preference}
                     onClick={() => handlePreferenceToggle(preference)}
                     variant={formData.preferences.includes(preference) ? "default" : "outline"}
-                    className={`text-sm h-auto p-3 ${
+                    size="sm"
+                    className={`text-sm h-auto p-3 text-left justify-start professional-focus ${
                       formData.preferences.includes(preference) 
-                        ? "romantic-gradient text-white" 
-                        : ""
+                        ? "professional-gradient text-white border-primary" 
+                        : "hover:bg-gray-50"
                     }`}
                   >
                     {preference}
@@ -145,44 +153,47 @@ export const ProfileCreation = () => {
               </div>
             </div>
 
-            {/* Favorites */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="movie" className="text-lg">Favorite Romantic Movie</Label>
-                <Input
-                  id="movie"
-                  value={formData.favoriteMovie}
-                  onChange={(e) => setFormData(prev => ({ ...prev, favoriteMovie: e.target.value }))}
-                  placeholder="e.g., The Notebook"
-                  className="p-3"
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="book" className="text-lg">Favorite Love Story</Label>
-                <Input
-                  id="book"
-                  value={formData.favoriteBook}
-                  onChange={(e) => setFormData(prev => ({ ...prev, favoriteBook: e.target.value }))}
-                  placeholder="e.g., Pride and Prejudice"
-                  className="p-3"
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="song" className="text-lg">Song That Makes You Think of Love</Label>
-                <Input
-                  id="song"
-                  value={formData.favoriteSong}
-                  onChange={(e) => setFormData(prev => ({ ...prev, favoriteSong: e.target.value }))}
-                  placeholder="e.g., All of Me by John Legend"
-                  className="p-3"
-                />
+            {/* Additional Information */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold text-foreground border-b pb-2">Additional Information</h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="space-y-2">
+                  <Label htmlFor="movie" className="text-sm font-medium text-foreground">Favorite Movie</Label>
+                  <Input
+                    id="movie"
+                    value={formData.favoriteMovie}
+                    onChange={(e) => setFormData(prev => ({ ...prev, favoriteMovie: e.target.value }))}
+                    placeholder="e.g., The Notebook"
+                    className="professional-focus"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="book" className="text-sm font-medium text-foreground">Favorite Book</Label>
+                  <Input
+                    id="book"
+                    value={formData.favoriteBook}
+                    onChange={(e) => setFormData(prev => ({ ...prev, favoriteBook: e.target.value }))}
+                    placeholder="e.g., Pride and Prejudice"
+                    className="professional-focus"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="song" className="text-sm font-medium text-foreground">Favorite Song</Label>
+                  <Input
+                    id="song"
+                    value={formData.favoriteSong}
+                    onChange={(e) => setFormData(prev => ({ ...prev, favoriteSong: e.target.value }))}
+                    placeholder="e.g., All of Me by John Legend"
+                    className="professional-focus"
+                  />
+                </div>
               </div>
             </div>
 
-            <div className="flex justify-center pt-6">
-              <Button onClick={handleSave} className="romantic-gradient text-white px-8 py-3 text-lg">
+            <div className="flex justify-center pt-8 border-t">
+              <Button onClick={handleSave} className="professional-gradient text-white px-8 py-3 professional-focus">
                 <Heart className="w-5 h-5 mr-2" />
-                Save My Romantic Profile
+                Save Profile
               </Button>
             </div>
           </CardContent>
