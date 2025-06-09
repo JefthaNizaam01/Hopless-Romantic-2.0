@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -34,7 +35,7 @@ const Index = () => {
       case 'quiz':
         return <LoveLanguageQuiz />;
       case 'profile':
-        return <ProfileCreation onSectionChange={setActiveSection} />;
+        return <ProfileCreation />;
       case 'conversations':
         return <DeepConversations />;
       case 'poetry':
@@ -130,32 +131,44 @@ const Index = () => {
               />
             </div>
 
-            {/* Special Features for Mobile - Now more compact */}
+            {/* Special Features for Mobile */}
             <div className="md:hidden mb-6">
               <Card className="romantic-glow border-primary/20">
-                <CardHeader className="pb-3">
-                  <CardTitle className="font-playfair text-lg">Quick Access ✨</CardTitle>
+                <CardHeader>
+                  <CardTitle className="font-playfair text-lg">Special Features ✨</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-2 gap-3">
                     <FeatureCard
-                      icon={<Heart className="w-5 h-5" />}
+                      icon={<Heart className="w-6 h-6" />}
                       title="Love Quiz"
                       description="Discover your language"
                       onClick={() => setActiveSection('quiz')}
                     />
                     <FeatureCard
-                      icon={<MessageCircle className="w-5 h-5" />}
+                      icon={<MessageCircle className="w-6 h-6" />}
                       title="Deep Talks"
                       description="Meaningful conversations"
                       onClick={() => setActiveSection('conversations')}
                     />
+                    <FeatureCard
+                      icon={<BookHeart className="w-6 h-6" />}
+                      title="Poetry"
+                      description="Write together"
+                      onClick={() => setActiveSection('poetry')}
+                    />
+                    <FeatureCard
+                      icon={<Sparkles className="w-6 h-6" />}
+                      title="Secret Notes"
+                      description="Anonymous admirer"
+                      onClick={() => setActiveSection('secret-admirer')}
+                    />
                   </div>
                   <Button 
-                    onClick={() => setActiveSection('profile')}
+                    onClick={() => setActiveSection('special')}
                     className="w-full mt-4 romantic-gradient text-white"
                   >
-                    View Profile & More Features
+                    View All Special Features
                   </Button>
                 </CardContent>
               </Card>

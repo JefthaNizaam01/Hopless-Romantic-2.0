@@ -51,15 +51,15 @@ export const Navigation = ({ activeSection, onSectionChange }: NavigationProps) 
           </Button>
 
           <Button
-            onClick={() => onSectionChange('events')}
-            variant={activeSection === 'events' ? 'default' : 'ghost'}
+            onClick={() => onSectionChange('special')}
+            variant={activeSection === 'special' ? 'default' : 'ghost'}
             size="sm"
             className={`flex flex-col gap-1 h-auto py-2 ${
-              activeSection === 'events' ? 'romantic-gradient text-white' : ''
+              activeSection === 'special' ? 'romantic-gradient text-white' : ''
             }`}
           >
-            <Calendar className="w-5 h-5" />
-            <span className="text-xs">Events</span>
+            <Sparkles className="w-5 h-5" />
+            <span className="text-xs">Special</span>
           </Button>
 
           <Button
