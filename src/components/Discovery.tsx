@@ -103,11 +103,11 @@ export const Discovery = () => {
 
   if (!currentProfile) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-6">
-        <Card className="text-center p-8">
+      <div className="min-h-screen flex items-center justify-center p-6 bg-background">
+        <Card className="text-center p-8 shadow-lg">
           <CardContent>
             <Heart className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
-            <h3 className="text-xl font-playfair mb-2">No more profiles</h3>
+            <h3 className="text-xl font-semibold mb-2 text-foreground">No more profiles</h3>
             <p className="text-muted-foreground">Check back later for more hopeless romantics!</p>
           </CardContent>
         </Card>
@@ -116,9 +116,9 @@ export const Discovery = () => {
   }
 
   return (
-    <div className="min-h-screen p-4 bg-gradient-to-br from-background to-secondary/20">
+    <div className="min-h-screen p-4 bg-background">
       <div className="max-w-md mx-auto">
-        <Card className="romantic-glow overflow-hidden">
+        <Card className="shadow-xl border-border overflow-hidden">
           <div className="relative">
             <img 
               src={currentProfile.photo} 
@@ -126,19 +126,19 @@ export const Discovery = () => {
               className="w-full h-96 object-cover"
             />
             <div className="absolute top-4 left-4">
-              <Badge variant="secondary" className="bg-background/80 backdrop-blur-sm">
+              <Badge variant="secondary" className="bg-background/90 backdrop-blur-sm text-foreground border-border">
                 {currentProfile.level === 'loverboy' ? '💙 Loverboy' : '💗 Lovergirl'}
               </Badge>
             </div>
-            <div className="absolute top-4 right-4 flex items-center gap-1 bg-background/80 backdrop-blur-sm rounded-full px-3 py-1">
+            <div className="absolute top-4 right-4 flex items-center gap-1 bg-background/90 backdrop-blur-sm rounded-full px-3 py-1 border border-border">
               <MapPin className="w-4 h-4 text-muted-foreground" />
-              <span className="text-sm font-medium">{currentProfile.distance} miles</span>
+              <span className="text-sm font-medium text-foreground">{currentProfile.distance} miles</span>
             </div>
           </div>
 
           <CardContent className="p-6 space-y-4">
             <div>
-              <h2 className="text-2xl font-playfair font-bold">
+              <h2 className="text-2xl font-semibold text-foreground mb-2">
                 {currentProfile.name}, {currentProfile.age}
               </h2>
               <p className="text-muted-foreground italic">"{currentProfile.bio}"</p>
@@ -154,7 +154,7 @@ export const Discovery = () => {
 
               <div>
                 <h4 className="font-semibold text-sm text-muted-foreground mb-1">Why I'm here</h4>
-                <p className="text-sm">{currentProfile.whyHere}</p>
+                <p className="text-sm text-foreground">{currentProfile.whyHere}</p>
               </div>
 
               <div>
@@ -176,15 +176,15 @@ export const Discovery = () => {
               <div className="grid grid-cols-1 gap-2 text-sm">
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Favorite Movie:</span>
-                  <span className="font-medium">{currentProfile.favoriteMovie}</span>
+                  <span className="font-medium text-foreground">{currentProfile.favoriteMovie}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Favorite Book:</span>
-                  <span className="font-medium">{currentProfile.favoriteBook}</span>
+                  <span className="font-medium text-foreground">{currentProfile.favoriteBook}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Love Song:</span>
-                  <span className="font-medium">{currentProfile.favoriteSong}</span>
+                  <span className="font-medium text-foreground">{currentProfile.favoriteSong}</span>
                 </div>
               </div>
             </div>
@@ -203,7 +203,7 @@ export const Discovery = () => {
                 onClick={handleCoffeeDate}
                 variant="outline"
                 size="lg"
-                className="w-16 h-16 rounded-full border-2 border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white"
+                className="w-16 h-16 rounded-full border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground"
               >
                 <Coffee className="w-6 h-6" />
               </Button>
@@ -211,7 +211,7 @@ export const Discovery = () => {
               <Button
                 onClick={() => handleSwipe('right')}
                 size="lg"
-                className="w-16 h-16 rounded-full romantic-gradient text-white heartbeat"
+                className="w-16 h-16 rounded-full bg-primary text-primary-foreground hover:bg-primary/90"
               >
                 <Heart className="w-6 h-6" />
               </Button>

@@ -138,15 +138,15 @@ export const DailyLoveLetters = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-secondary/10 to-romantic-blush/10 p-4">
+    <div className="min-h-screen bg-background p-4">
       <div className="max-w-5xl mx-auto">
-        <Card className="romantic-glow border-primary/20 mb-6">
+        <Card className="shadow-lg border-border mb-6">
           <CardHeader className="text-center">
-            <div className="w-16 h-16 romantic-gradient rounded-full flex items-center justify-center mx-auto mb-4">
-              <Mail className="w-8 h-8 text-white" />
+            <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
+              <Mail className="w-8 h-8 text-primary-foreground" />
             </div>
-            <CardTitle className="text-2xl font-playfair">Daily Love Letters 💌</CardTitle>
-            <CardDescription className="text-lg">
+            <CardTitle className="text-2xl font-semibold text-foreground">Daily Love Letters 💌</CardTitle>
+            <CardDescription className="text-lg text-muted-foreground">
               Romantic letters, quotes, and messages to brighten your day
             </CardDescription>
           </CardHeader>
@@ -155,14 +155,14 @@ export const DailyLoveLetters = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Letters List */}
           <div className="lg:col-span-1">
-            <Card className="border-primary/20">
+            <Card className="border-border shadow-lg">
               <CardHeader className="flex flex-row items-center justify-between">
-                <CardTitle className="font-playfair text-lg">Your Letters</CardTitle>
+                <CardTitle className="font-semibold text-lg text-foreground">Your Letters</CardTitle>
                 <Button 
                   onClick={generateNewLetter}
                   size="sm"
                   variant="outline"
-                  className="border-primary text-primary hover:bg-primary hover:text-white"
+                  className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
                 >
                   <Quote className="w-4 h-4" />
                 </Button>
@@ -171,10 +171,10 @@ export const DailyLoveLetters = () => {
                 {letters.map((letter) => (
                   <Card 
                     key={letter.id}
-                    className={`cursor-pointer transition-all duration-300 ${
+                    className={`cursor-pointer transition-all duration-300 border-border ${
                       selectedLetter?.id === letter.id 
-                        ? 'ring-2 ring-primary romantic-glow' 
-                        : 'hover:romantic-glow'
+                        ? 'ring-2 ring-primary shadow-lg' 
+                        : 'hover:shadow-md'
                     }`}
                     onClick={() => setSelectedLetter(letter)}
                   >
@@ -197,7 +197,7 @@ export const DailyLoveLetters = () => {
                         )}
                       </div>
                       
-                      <h4 className="font-semibold text-sm mb-1">{letter.title}</h4>
+                      <h4 className="font-semibold text-sm mb-1 text-foreground">{letter.title}</h4>
                       
                       <div className="flex items-center gap-2 mb-2">
                         {letter.type === 'match' && (
@@ -211,7 +211,7 @@ export const DailyLoveLetters = () => {
                           </Badge>
                         )}
                         {letter.type === 'daily' && (
-                          <Badge variant="outline" className="text-xs">
+                          <Badge variant="outline" className="text-xs border-border">
                             Daily
                           </Badge>
                         )}
@@ -230,12 +230,12 @@ export const DailyLoveLetters = () => {
           {/* Selected Letter */}
           <div className="lg:col-span-2">
             {selectedLetter ? (
-              <Card className="border-primary/20 h-fit">
+              <Card className="border-border shadow-lg h-fit">
                 <CardHeader>
                   <div className="flex items-center justify-between">
                     <div>
-                      <CardTitle className="font-playfair">{selectedLetter.title}</CardTitle>
-                      <CardDescription>
+                      <CardTitle className="font-semibold text-foreground">{selectedLetter.title}</CardTitle>
+                      <CardDescription className="text-muted-foreground">
                         {selectedLetter.type === 'match' && `From ${selectedLetter.fromMatch}`}
                         {selectedLetter.type === 'literature' && `By ${selectedLetter.author}`}
                         {selectedLetter.type === 'daily' && 'Daily Inspiration'}
@@ -249,7 +249,7 @@ export const DailyLoveLetters = () => {
                       variant="outline"
                       className={selectedLetter.isBookmarked 
                         ? "border-primary text-primary" 
-                        : "border-muted-foreground text-muted-foreground"
+                        : "border-border text-muted-foreground"
                       }
                     >
                       {selectedLetter.isBookmarked ? (
@@ -274,8 +274,8 @@ export const DailyLoveLetters = () => {
 
                   {/* Reply Section for Match Letters */}
                   {selectedLetter.type === 'match' && (
-                    <div className="border-t pt-6">
-                      <h4 className="font-playfair font-semibold mb-3">Write Back</h4>
+                    <div className="border-t border-border pt-6">
+                      <h4 className="font-semibold mb-3 text-foreground">Write Back</h4>
                       {selectedLetter.hasReplied ? (
                         <Card className="bg-green-50 border-green-200">
                           <CardContent className="p-4 text-center">
@@ -291,12 +291,12 @@ export const DailyLoveLetters = () => {
                             value={replyText}
                             onChange={(e) => setReplyText(e.target.value)}
                             placeholder="Write your romantic reply..."
-                            className="min-h-24 border-primary/20"
+                            className="min-h-24 border-border"
                           />
                           <Button 
                             onClick={sendReply}
                             disabled={!replyText.trim()}
-                            className="romantic-gradient text-white"
+                            className="bg-primary text-primary-foreground hover:bg-primary/90"
                           >
                             <Send className="w-4 h-4 mr-2" />
                             Send Love Letter Back
@@ -308,10 +308,10 @@ export const DailyLoveLetters = () => {
                 </CardContent>
               </Card>
             ) : (
-              <Card className="border-primary/20 h-96 flex items-center justify-center">
+              <Card className="border-border shadow-lg h-96 flex items-center justify-center">
                 <CardContent className="text-center">
                   <Mail className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
-                  <h3 className="text-xl font-playfair mb-2">Select a Love Letter</h3>
+                  <h3 className="text-xl font-semibold mb-2 text-foreground">Select a Love Letter</h3>
                   <p className="text-muted-foreground">
                     Choose a letter to read your daily dose of romance
                   </p>

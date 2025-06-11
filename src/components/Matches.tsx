@@ -86,12 +86,12 @@ export const Matches = () => {
   };
 
   return (
-    <div className="min-h-screen p-6">
+    <div className="min-h-screen p-6 bg-background">
       <div className="max-w-4xl mx-auto space-y-6">
-        <Card className="romantic-glow">
+        <Card className="shadow-lg border-border">
           <CardHeader className="text-center">
-            <CardTitle className="text-3xl font-playfair">Your Heart-to-Heart Matches</CardTitle>
-            <CardDescription className="text-lg">
+            <CardTitle className="text-3xl font-semibold text-foreground">Your Heart-to-Heart Matches</CardTitle>
+            <CardDescription className="text-lg text-muted-foreground">
               Beautiful souls who felt the same spark ✨
             </CardDescription>
           </CardHeader>
@@ -101,7 +101,7 @@ export const Matches = () => {
           {matches.map((match) => (
             <Card 
               key={match.id} 
-              className="cursor-pointer hover:romantic-glow transition-all duration-300 hover:scale-105"
+              className="cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-105 border-border"
               onClick={() => setSelectedMatch(match)}
             >
               <CardContent className="p-4">
@@ -112,29 +112,29 @@ export const Matches = () => {
                     className="w-full h-48 object-cover rounded-lg"
                   />
                   <div className="absolute top-2 left-2">
-                    <Badge variant="secondary" className="bg-background/80 backdrop-blur-sm">
+                    <Badge variant="secondary" className="bg-background/90 backdrop-blur-sm text-foreground border-border">
                       {match.level === 'loverboy' ? '💙 Loverboy' : '💗 Lovergirl'}
                     </Badge>
                   </div>
                   {match.isOnline && (
-                    <div className="absolute top-2 right-2 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
+                    <div className="absolute top-2 right-2 w-3 h-3 bg-green-500 rounded-full border-2 border-background"></div>
                   )}
-                  <div className="absolute bottom-2 right-2 bg-background/80 backdrop-blur-sm rounded-full px-2 py-1">
-                    <span className="text-xs font-medium">{match.connectionScore}% match</span>
+                  <div className="absolute bottom-2 right-2 bg-background/90 backdrop-blur-sm rounded-full px-2 py-1 border border-border">
+                    <span className="text-xs font-medium text-foreground">{match.connectionScore}% match</span>
                   </div>
                 </div>
 
                 <div className="space-y-3">
                   <div>
-                    <h3 className="text-lg font-playfair font-semibold">
+                    <h3 className="text-lg font-semibold text-foreground">
                       {match.name}, {match.age}
                     </h3>
                     <p className="text-sm text-muted-foreground">Matched {match.matchDate}</p>
                   </div>
 
                   {match.lastMessage && (
-                    <div className="bg-secondary/50 rounded-lg p-3">
-                      <p className="text-sm italic">"{match.lastMessage}"</p>
+                    <div className="bg-secondary/50 rounded-lg p-3 border border-border">
+                      <p className="text-sm italic text-foreground">"{match.lastMessage}"</p>
                       <p className="text-xs text-muted-foreground mt-1">{match.lastMessageTime}</p>
                     </div>
                   )}
@@ -146,7 +146,7 @@ export const Matches = () => {
                         handleStartChat(match);
                       }}
                       size="sm" 
-                      className="flex-1 romantic-gradient text-white"
+                      className="flex-1 bg-primary text-primary-foreground hover:bg-primary/90"
                     >
                       <MessageCircle className="w-4 h-4 mr-1" />
                       Chat
@@ -158,7 +158,7 @@ export const Matches = () => {
                       }}
                       size="sm" 
                       variant="outline"
-                      className="border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white"
+                      className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
                     >
                       <Coffee className="w-4 h-4" />
                     </Button>
@@ -169,7 +169,7 @@ export const Matches = () => {
                       }}
                       size="sm" 
                       variant="outline"
-                      className="border-purple-500 text-purple-500 hover:bg-purple-500 hover:text-white"
+                      className="border-secondary text-secondary-foreground hover:bg-secondary"
                     >
                       <Calendar className="w-4 h-4" />
                     </Button>
@@ -181,10 +181,10 @@ export const Matches = () => {
         </div>
 
         {matches.length === 0 && (
-          <Card className="text-center p-8">
+          <Card className="text-center p-8 border-border">
             <CardContent>
               <Heart className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
-              <h3 className="text-xl font-playfair mb-2">No matches yet</h3>
+              <h3 className="text-xl font-semibold mb-2 text-foreground">No matches yet</h3>
               <p className="text-muted-foreground">
                 Keep swiping to find your hopeless romantic soulmate!
               </p>
@@ -194,14 +194,14 @@ export const Matches = () => {
 
         {/* Match Details Modal */}
         {selectedMatch && (
-          <Card className="fixed inset-4 z-50 bg-background border-2 border-primary overflow-y-auto">
+          <Card className="fixed inset-4 z-50 bg-background border-2 border-primary overflow-y-auto shadow-xl">
             <CardHeader>
               <div className="flex justify-between items-start">
                 <div>
-                  <CardTitle className="text-2xl font-playfair">
+                  <CardTitle className="text-2xl font-semibold text-foreground">
                     {selectedMatch.name}, {selectedMatch.age}
                   </CardTitle>
-                  <CardDescription>
+                  <CardDescription className="text-muted-foreground">
                     {selectedMatch.connectionScore}% match • Matched {selectedMatch.matchDate}
                   </CardDescription>
                 </div>
@@ -209,6 +209,7 @@ export const Matches = () => {
                   onClick={() => setSelectedMatch(null)}
                   variant="outline"
                   size="sm"
+                  className="border-border"
                 >
                   ✕
                 </Button>
@@ -224,7 +225,7 @@ export const Matches = () => {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <Button 
                   onClick={() => handleStartChat(selectedMatch)}
-                  className="romantic-gradient text-white"
+                  className="bg-primary text-primary-foreground hover:bg-primary/90"
                 >
                   <MessageCircle className="w-5 h-5 mr-2" />
                   Start Chatting
@@ -232,7 +233,7 @@ export const Matches = () => {
                 <Button 
                   onClick={() => handleCoffeeDate(selectedMatch)}
                   variant="outline"
-                  className="border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white"
+                  className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
                 >
                   <Coffee className="w-5 h-5 mr-2" />
                   Coffee Date
@@ -240,7 +241,7 @@ export const Matches = () => {
                 <Button 
                   onClick={() => handlePlanEvent(selectedMatch)}
                   variant="outline"
-                  className="border-purple-500 text-purple-500 hover:bg-purple-500 hover:text-white"
+                  className="border-secondary text-secondary-foreground hover:bg-secondary"
                 >
                   <Users className="w-5 h-5 mr-2" />
                   Plan Event

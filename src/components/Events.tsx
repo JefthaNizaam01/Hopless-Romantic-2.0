@@ -127,12 +127,12 @@ export const Events = () => {
 
   const getCategoryColor = (category: Event['category']) => {
     switch (category) {
-      case 'movie': return 'bg-blue-500';
-      case 'sunset': return 'bg-orange-500';
-      case 'coffee': return 'bg-amber-600';
-      case 'poetry': return 'bg-pink-500';
-      case 'music': return 'bg-purple-500';
-      default: return 'bg-primary';
+      case 'movie': return 'bg-secondary text-secondary-foreground';
+      case 'sunset': return 'bg-accent text-accent-foreground';
+      case 'coffee': return 'bg-muted text-muted-foreground';
+      case 'poetry': return 'bg-primary text-primary-foreground';
+      case 'music': return 'bg-secondary text-secondary-foreground';
+      default: return 'bg-primary text-primary-foreground';
     }
   };
 
@@ -187,22 +187,22 @@ export const Events = () => {
   };
 
   return (
-    <div className="min-h-screen p-6">
+    <div className="min-h-screen p-6 bg-background">
       <div className="max-w-6xl mx-auto space-y-6">
-        <Card className="romantic-glow">
+        <Card className="shadow-lg border-border">
           <CardHeader className="text-center">
-            <CardTitle className="text-3xl font-playfair">Romantic Events</CardTitle>
-            <CardDescription className="text-lg">
+            <CardTitle className="text-3xl font-semibold text-foreground">Romantic Events</CardTitle>
+            <CardDescription className="text-lg text-muted-foreground">
               Join magical gatherings with fellow hopeless romantics ✨
             </CardDescription>
           </CardHeader>
         </Card>
 
         <div className="flex justify-between items-center">
-          <h2 className="text-2xl font-playfair">Upcoming Events</h2>
+          <h2 className="text-2xl font-semibold text-foreground">Upcoming Events</h2>
           <Button 
             onClick={() => setShowCreateForm(!showCreateForm)}
-            className="romantic-gradient text-white"
+            className="bg-primary text-primary-foreground hover:bg-primary/90"
           >
             <Calendar className="w-4 h-4 mr-2" />
             Create Event
@@ -211,31 +211,32 @@ export const Events = () => {
 
         {/* Create Event Form */}
         {showCreateForm && (
-          <Card className="romantic-glow">
+          <Card className="shadow-lg border-border">
             <CardHeader>
-              <CardTitle className="text-xl font-playfair">Create a Romantic Event</CardTitle>
-              <CardDescription>
+              <CardTitle className="text-xl font-semibold text-foreground">Create a Romantic Event</CardTitle>
+              <CardDescription className="text-muted-foreground">
                 Bring hopeless romantics together for a magical experience
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="title">Event Title *</Label>
+                  <Label htmlFor="title" className="text-foreground">Event Title *</Label>
                   <Input
                     id="title"
                     value={newEvent.title}
                     onChange={(e) => setNewEvent(prev => ({ ...prev, title: e.target.value }))}
                     placeholder="Sunset Poetry Reading..."
+                    className="border-border"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="category">Category</Label>
+                  <Label htmlFor="category" className="text-foreground">Category</Label>
                   <select
                     id="category"
                     value={newEvent.category}
                     onChange={(e) => setNewEvent(prev => ({ ...prev, category: e.target.value as Event['category'] }))}
-                    className="w-full p-2 border rounded-md"
+                    className="w-full p-2 border border-border rounded-md bg-background text-foreground"
                   >
                     <option value="coffee">Coffee & Chat</option>
                     <option value="movie">Movie Night</option>
@@ -249,37 +250,39 @@ export const Events = () => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="description">Description</Label>
+                <Label htmlFor="description" className="text-foreground">Description</Label>
                 <Textarea
                   id="description"
                   value={newEvent.description}
                   onChange={(e) => setNewEvent(prev => ({ ...prev, description: e.target.value }))}
                   placeholder="Describe your romantic event..."
-                  className="min-h-[100px]"
+                  className="min-h-[100px] border-border"
                 />
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="date">Date *</Label>
+                  <Label htmlFor="date" className="text-foreground">Date *</Label>
                   <Input
                     id="date"
                     type="date"
                     value={newEvent.date}
                     onChange={(e) => setNewEvent(prev => ({ ...prev, date: e.target.value }))}
+                    className="border-border"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="time">Time</Label>
+                  <Label htmlFor="time" className="text-foreground">Time</Label>
                   <Input
                     id="time"
                     type="time"
                     value={newEvent.time}
                     onChange={(e) => setNewEvent(prev => ({ ...prev, time: e.target.value }))}
+                    className="border-border"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="maxAttendees">Max Attendees</Label>
+                  <Label htmlFor="maxAttendees" className="text-foreground">Max Attendees</Label>
                   <Input
                     id="maxAttendees"
                     type="number"
@@ -287,25 +290,27 @@ export const Events = () => {
                     max="30"
                     value={newEvent.maxAttendees}
                     onChange={(e) => setNewEvent(prev => ({ ...prev, maxAttendees: parseInt(e.target.value) }))}
+                    className="border-border"
                   />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="location">Location *</Label>
+                <Label htmlFor="location" className="text-foreground">Location *</Label>
                 <Input
                   id="location"
                   value={newEvent.location}
                   onChange={(e) => setNewEvent(prev => ({ ...prev, location: e.target.value }))}
                   placeholder="Where will this magical event take place?"
+                  className="border-border"
                 />
               </div>
 
               <div className="flex gap-4">
-                <Button onClick={handleCreateEvent} className="romantic-gradient text-white">
+                <Button onClick={handleCreateEvent} className="bg-primary text-primary-foreground hover:bg-primary/90">
                   Create Event
                 </Button>
-                <Button onClick={() => setShowCreateForm(false)} variant="outline">
+                <Button onClick={() => setShowCreateForm(false)} variant="outline" className="border-border">
                   Cancel
                 </Button>
               </div>
@@ -316,53 +321,53 @@ export const Events = () => {
         {/* Events Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {events.map((event) => (
-            <Card key={event.id} className="hover:romantic-glow transition-all duration-300">
+            <Card key={event.id} className="hover:shadow-xl transition-all duration-300 border-border">
               <CardContent className="p-6">
                 <div className="space-y-4">
                   <div className="flex items-start justify-between">
-                    <div className={`p-2 rounded-lg ${getCategoryColor(event.category)} text-white`}>
+                    <div className={`p-2 rounded-lg ${getCategoryColor(event.category)}`}>
                       {getCategoryIcon(event.category)}
                     </div>
-                    <Badge variant="secondary">
+                    <Badge variant="secondary" className="border-border">
                       {event.currentAttendees}/{event.maxAttendees} people
                     </Badge>
                   </div>
 
                   <div>
-                    <h3 className="text-lg font-playfair font-semibold mb-2">{event.title}</h3>
+                    <h3 className="text-lg font-semibold mb-2 text-foreground">{event.title}</h3>
                     <p className="text-sm text-muted-foreground line-clamp-3">{event.description}</p>
                   </div>
 
                   <div className="space-y-2 text-sm">
                     <div className="flex items-center gap-2">
                       <Calendar className="w-4 h-4 text-muted-foreground" />
-                      <span>{new Date(event.date).toLocaleDateString()} {event.time && `at ${event.time}`}</span>
+                      <span className="text-foreground">{new Date(event.date).toLocaleDateString()} {event.time && `at ${event.time}`}</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <MapPin className="w-4 h-4 text-muted-foreground" />
-                      <span className="truncate">{event.location}</span>
+                      <span className="truncate text-foreground">{event.location}</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <Users className="w-4 h-4 text-muted-foreground" />
-                      <span>Hosted by {event.hostName}</span>
+                      <span className="text-foreground">Hosted by {event.hostName}</span>
                     </div>
                   </div>
 
                   {event.attendees.length > 0 && (
                     <div>
-                      <p className="text-sm font-medium mb-2">Who's going:</p>
+                      <p className="text-sm font-medium mb-2 text-foreground">Who's going:</p>
                       <div className="flex -space-x-2">
                         {event.attendees.slice(0, 6).map((attendee) => (
                           <img
                             key={attendee.id}
                             src={attendee.photo}
                             alt={attendee.name}
-                            className="w-8 h-8 rounded-full border-2 border-white object-cover"
+                            className="w-8 h-8 rounded-full border-2 border-background object-cover"
                             title={`${attendee.name} (${attendee.level})`}
                           />
                         ))}
                         {event.attendees.length > 6 && (
-                          <div className="w-8 h-8 rounded-full bg-muted border-2 border-white flex items-center justify-center text-xs">
+                          <div className="w-8 h-8 rounded-full bg-muted border-2 border-background flex items-center justify-center text-xs text-muted-foreground">
                             +{event.attendees.length - 6}
                           </div>
                         )}
@@ -373,7 +378,7 @@ export const Events = () => {
                   <Button 
                     onClick={() => handleJoinEvent(event.id)}
                     disabled={event.currentAttendees >= event.maxAttendees}
-                    className="w-full romantic-gradient text-white"
+                    className="w-full bg-primary text-primary-foreground hover:bg-primary/90 disabled:bg-muted disabled:text-muted-foreground"
                   >
                     {event.currentAttendees >= event.maxAttendees ? "Event Full" : "Join Event"}
                   </Button>
@@ -384,16 +389,16 @@ export const Events = () => {
         </div>
 
         {events.length === 0 && (
-          <Card className="text-center p-12">
+          <Card className="text-center p-12 border-border">
             <CardContent>
               <Calendar className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
-              <h3 className="text-xl font-playfair mb-2">No events yet</h3>
+              <h3 className="text-xl font-semibold mb-2 text-foreground">No events yet</h3>
               <p className="text-muted-foreground mb-4">
                 Be the first to create a romantic event for fellow hopeless romantics!
               </p>
               <Button 
                 onClick={() => setShowCreateForm(true)}
-                className="romantic-gradient text-white"
+                className="bg-primary text-primary-foreground hover:bg-primary/90"
               >
                 Create First Event
               </Button>
