@@ -16,10 +16,14 @@ import { VibePlaylists } from "@/components/VibePlaylists";
 import { DailyLoveLetters } from "@/components/DailyLoveLetters";
 import { SpecialFeatures } from "@/components/SpecialFeatures";
 import { Navigation, DesktopNavigation } from "@/components/Navigation";
+import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
+import React from "react"; // Added missing import for React
 
 const Index = () => {
   const [activeSection, setActiveSection] = useState<string>('home');
   const [userLevel, setUserLevel] = useState<'loverboy' | 'lovergirl' | null>('lovergirl');
+  const [showIntro, setShowIntro] = useState(true); // Show intro slides for first-time users
+  const [introIndex, setIntroIndex] = useState(0);
 
   const renderActiveSection = () => {
     switch (activeSection) {
@@ -262,6 +266,65 @@ const Index = () => {
     </div>
   );
 
+  const CoupleHeartSVG = (
+    <svg width="220" height="160" viewBox="0 0 220 160" fill="none" xmlns="http://www.w3.org/2000/svg" className="mx-auto mb-6 animate-fade-in">
+      {/* Sunset background */}
+      <ellipse cx="110" cy="140" rx="90" ry="18" fill="#E0C3FC"/>
+      <ellipse cx="110" cy="150" rx="60" ry="10" fill="#BDB2FF"/>
+      <radialGradient id="sunset" cx="0.5" cy="0.7" r="0.7">
+        <stop offset="0%" stopColor="#FFD6E0"/>
+        <stop offset="100%" stopColor="#FFB347"/>
+      </radialGradient>
+      <ellipse cx="110" cy="120" rx="40" ry="12" fill="url(#sunset)"/>
+      {/* Sun */}
+      <circle cx="110" cy="120" r="18" fill="#FFD6E0" opacity="0.7"/>
+      {/* Left Person (facing right) */}
+      <g>
+        <circle cx="70" cy="70" r="18" fill="#FFD6E0"/>
+        <rect x="60" y="88" width="12" height="32" rx="6" fill="#A0C4FF"/>
+        {/* Arm toward center */}
+        <path d="M75 100 Q90 110 110 110" stroke="#FFD6E0" strokeWidth="6" fill="none"/>
+        {/* Face features */}
+        <ellipse cx="65" cy="72" rx="2" ry="2.5" fill="#333"/>
+        <ellipse cx="75" cy="72" rx="2" ry="2.5" fill="#333"/>
+        <path d="M67 78 Q70 81 73 78" stroke="#FF6F91" strokeWidth="2" fill="none"/>
+      </g>
+      {/* Right Person (facing left) */}
+      <g>
+        <circle cx="150" cy="70" r="18" fill="#FFD6E0"/>
+        <rect x="148" y="88" width="12" height="32" rx="6" fill="#A0C4FF"/>
+        {/* Arm toward center */}
+        <path d="M145 100 Q130 110 110 110" stroke="#FFD6E0" strokeWidth="6" fill="none"/>
+        {/* Face features */}
+        <ellipse cx="145" cy="72" rx="2" ry="2.5" fill="#333"/>
+        <ellipse cx="155" cy="72" rx="2" ry="2.5" fill="#333"/>
+        <path d="M147 78 Q150 81 153 78" stroke="#FF6F91" strokeWidth="2" fill="none"/>
+      </g>
+      {/* Full heart shape in center */}
+      <path d="M110 110 C120 100 140 120 110 140 C80 120 100 100 110 110 Z" fill="#FF6F91" stroke="#FF6F91" strokeWidth="2"/>
+      {/* Beach line */}
+      <rect x="30" y="145" width="160" height="8" rx="4" fill="#FFE5B4"/>
+    </svg>
+  );
+
+  const introSlides = [
+    {
+      title: "Welcome to Hopeless Romantic",
+      description: "Where deep love begins and meaningful connections flourish. Join a community that values authenticity and romance!",
+      image: <img src="/make-a-heart.jpg" alt="Two people making a heart" className="w-full max-w-xs h-48 object-cover rounded-xl mx-auto mb-6 animate-fade-in" />,
+    },
+    {
+      title: "Unique Romantic Features",
+      description: "Enjoy Poetry Duets, Deep Conversations, Love Language Quizzes, and more. Find your soulmate through meaningful interactions!",
+      image: <img src="/hold hands2.JPG" alt="Two people holding hands" className="w-full max-w-xs h-48 object-cover rounded-xl mx-auto mb-6 animate-fade-in" style={{ filter: 'brightness(0.85) contrast(1.1)' }} />,
+    },
+    {
+      title: "No Superficial Swipes",
+      description: "Express real interest with Heart-to-Heart, plan Coffee Dates, and build authentic connections. Your love story starts here!",
+      image: <img src="/coffee3.JPG" alt="Steaming coffee cup" className="w-full max-w-xs h-48 object-cover rounded-xl mx-auto mb-6 animate-fade-in" />,
+    },
+  ];
+
   const FeatureCard = ({ 
     icon, 
     title, 
@@ -320,6 +383,55 @@ const Index = () => {
       </CardContent>
     </Card>
   );
+
+  if (showIntro) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-pink-50 via-purple-50 to-blue-50 p-4">
+        <div className="w-full max-w-md mx-auto">
+          <Carousel
+            opts={{ loop: false }}
+            setApi={api => {
+              if (api) {
+                api.on('select', () => setIntroIndex(api.selectedScrollSnap()));
+              }
+            }}
+          >
+            <CarouselContent>
+              {introSlides.map((slide, idx) => (
+                <CarouselItem key={idx}>
+                  <div className="flex flex-col items-center justify-center min-h-[400px] p-6 text-center">
+                    {slide.image}
+                    <h2 className="text-3xl font-playfair font-bold mb-4 text-gradient">{slide.title}</h2>
+                    <p className="text-lg text-slate-600 mb-8">{slide.description}</p>
+                    {idx === introSlides.length - 1 && (
+                      <Button
+                        className="btn-primary px-8 py-3 text-lg mt-6"
+                        onClick={() => {
+                          setShowIntro(false);
+                          setActiveSection('profile');
+                        }}
+                      >
+                        Get Started
+                      </Button>
+                    )}
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+          </Carousel>
+          {/* Dot indicators */}
+          <div className="flex justify-center gap-2 mt-6">
+            {introSlides.map((_, idx) => (
+              <span
+                key={idx}
+                className={`h-3 w-3 rounded-full transition-all duration-300 ${introIndex === idx ? 'bg-pink-500 scale-125' : 'bg-slate-300'}`}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50 to-pink-50">

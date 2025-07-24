@@ -1,9 +1,8 @@
-
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Heart, X, Coffee, MessageCircle, MapPin, Calendar } from "lucide-react";
+import { Heart, X, Coffee, MessageCircle, MapPin, Calendar, Star, Sparkles, BookOpen, Music } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface Profile {
@@ -21,6 +20,12 @@ interface Profile {
   favoriteSong: string;
   preferences: string[];
   whyHere: string;
+  idealDate: string;
+  relationshipGoal: string;
+  favoritePoem: string;
+  poetryStyle: string;
+  communicationStyle: string;
+  compatibility: number;
 }
 
 const sampleProfiles: Profile[] = [
@@ -41,7 +46,13 @@ const sampleProfiles: Profile[] = [
     favoriteBook: "Pride and Prejudice",
     favoriteSong: "All of Me by John Legend",
     preferences: ["Sunset walks", "Poetry reading", "Coffee shop dates", "Stargazing"],
-    whyHere: "Searching for my person - someone who wants to build a beautiful love story together"
+    whyHere: "Searching for my person - someone who wants to build a beautiful love story together",
+    idealDate: "A cozy evening at a vintage bookstore, followed by a candlelit dinner and stargazing in the park",
+    relationshipGoal: "Long-term relationship leading to marriage",
+    favoritePoem: "How do I love thee? Let me count the ways...",
+    poetryStyle: "Romantic sonnets and free verse",
+    communicationStyle: "Through words and deep conversations",
+    compatibility: 92
   },
   {
     id: "2",
@@ -60,9 +71,33 @@ const sampleProfiles: Profile[] = [
     favoriteBook: "The Time Traveler's Wife",
     favoriteSong: "At Last by Etta James",
     preferences: ["Jazz music", "Candlelit dinners", "Dancing in the rain", "Art galleries"],
-    whyHere: "Ready to find my forever person and shower them with all the love they deserve"
+    whyHere: "Ready to find my forever person and shower them with all the love they deserve",
+    idealDate: "A jazz concert followed by a midnight walk in the rain, ending with hot chocolate and deep conversation",
+    relationshipGoal: "Serious relationship with potential for future",
+    favoritePoem: "Shall I compare thee to a summer's day?",
+    poetryStyle: "Classic sonnets and modern free verse",
+    communicationStyle: "Through thoughtful actions and quality time",
+    compatibility: 87
   }
 ];
+
+const getLoveLanguageIcon = (loveLanguage: string) => {
+  switch (loveLanguage) {
+    case "Words of Affirmation": return "💬";
+    case "Acts of Service": return "🤝";
+    case "Receiving Gifts": return "🎁";
+    case "Quality Time": return "⏰";
+    case "Physical Touch": return "🤗";
+    default: return "💕";
+  }
+};
+
+const getCompatibilityColor = (score: number) => {
+  if (score >= 90) return "text-green-600 bg-green-100";
+  if (score >= 80) return "text-blue-600 bg-blue-100";
+  if (score >= 70) return "text-yellow-600 bg-yellow-100";
+  return "text-gray-600 bg-gray-100";
+};
 
 export const Discovery = () => {
   const [currentProfileIndex, setCurrentProfileIndex] = useState(0);
@@ -125,11 +160,18 @@ export const Discovery = () => {
               alt={currentProfile.name}
               className="w-full h-96 object-cover"
             />
-            <div className="absolute top-4 left-4">
+            
+            {/* Compatibility Badge */}
+            <div className="absolute top-4 left-4 flex items-center gap-2">
               <Badge variant="secondary" className="bg-background/80 backdrop-blur-sm">
                 {currentProfile.level === 'loverboy' ? '💙 Loverboy' : '💗 Lovergirl'}
               </Badge>
+              <Badge className={`${getCompatibilityColor(currentProfile.compatibility)} font-bold`}>
+                <Sparkles className="w-3 h-3 mr-1" />
+                {currentProfile.compatibility}% Match
+              </Badge>
             </div>
+            
             <div className="absolute top-4 right-4 flex items-center gap-1 bg-background/80 backdrop-blur-sm rounded-full px-3 py-1">
               <MapPin className="w-4 h-4 text-muted-foreground" />
               <span className="text-sm font-medium">{currentProfile.distance} miles</span>
@@ -145,18 +187,43 @@ export const Discovery = () => {
             </div>
 
             <div className="space-y-3">
+              {/* Love Language */}
               <div>
-                <h4 className="font-semibold text-sm text-muted-foreground mb-1">Love Language</h4>
+                <h4 className="font-semibold text-sm text-muted-foreground mb-1 flex items-center gap-2">
+                  <Heart className="w-4 h-4" />
+                  Love Language
+                </h4>
                 <Badge variant="outline" className="border-primary text-primary">
-                  {currentProfile.loveLanguage}
+                  {getLoveLanguageIcon(currentProfile.loveLanguage)} {currentProfile.loveLanguage}
                 </Badge>
               </div>
 
+              {/* Relationship Goal */}
+              <div>
+                <h4 className="font-semibold text-sm text-muted-foreground mb-1">Looking for</h4>
+                <p className="text-sm bg-rose-50 p-2 rounded-lg border border-rose-200">
+                  {currentProfile.relationshipGoal}
+                </p>
+              </div>
+
+              {/* Ideal Date */}
+              <div>
+                <h4 className="font-semibold text-sm text-muted-foreground mb-1 flex items-center gap-2">
+                  <Calendar className="w-4 h-4" />
+                  Dream Date
+                </h4>
+                <p className="text-sm bg-blue-50 p-2 rounded-lg border border-blue-200">
+                  {currentProfile.idealDate}
+                </p>
+              </div>
+
+              {/* Why Here */}
               <div>
                 <h4 className="font-semibold text-sm text-muted-foreground mb-1">Why I'm here</h4>
                 <p className="text-sm">{currentProfile.whyHere}</p>
               </div>
 
+              {/* Romantic Preferences */}
               <div>
                 <h4 className="font-semibold text-sm text-muted-foreground mb-1">Romantic Preferences</h4>
                 <div className="flex flex-wrap gap-1">
@@ -173,19 +240,45 @@ export const Discovery = () => {
                 </div>
               </div>
 
+              {/* Creative Side */}
               <div className="grid grid-cols-1 gap-2 text-sm">
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Favorite Movie:</span>
-                  <span className="font-medium">{currentProfile.favoriteMovie}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Favorite Book:</span>
+                <div className="flex justify-between items-center">
+                  <span className="text-muted-foreground flex items-center gap-1">
+                    <BookOpen className="w-4 h-4" />
+                    Favorite Book:
+                  </span>
                   <span className="font-medium">{currentProfile.favoriteBook}</span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Love Song:</span>
+                <div className="flex justify-between items-center">
+                  <span className="text-muted-foreground flex items-center gap-1">
+                    <Star className="w-4 h-4" />
+                    Favorite Movie:
+                  </span>
+                  <span className="font-medium">{currentProfile.favoriteMovie}</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-muted-foreground flex items-center gap-1">
+                    <Music className="w-4 h-4" />
+                    Love Song:
+                  </span>
                   <span className="font-medium">{currentProfile.favoriteSong}</span>
                 </div>
+              </div>
+
+              {/* Poetry Style */}
+              <div>
+                <h4 className="font-semibold text-sm text-muted-foreground mb-1">Poetry Style</h4>
+                <p className="text-sm bg-purple-50 p-2 rounded-lg border border-purple-200">
+                  {currentProfile.poetryStyle}
+                </p>
+              </div>
+
+              {/* Communication Style */}
+              <div>
+                <h4 className="font-semibold text-sm text-muted-foreground mb-1">Expresses Love Through</h4>
+                <p className="text-sm bg-green-50 p-2 rounded-lg border border-green-200">
+                  {currentProfile.communicationStyle}
+                </p>
               </div>
             </div>
 
@@ -226,3 +319,5 @@ export const Discovery = () => {
     </div>
   );
 };
+
+

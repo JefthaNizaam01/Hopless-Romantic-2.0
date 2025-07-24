@@ -364,6 +364,14 @@
     border-radius: 50%;
     animation: spin 1s linear infinite;
   }
+
+  /* Romantic Red Love Gradient and Glow */
+  .romantic-gradient {
+    background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
+  }
+  .romantic-glow {
+    box-shadow: 0 0 40px 0 rgba(255, 65, 108, 0.25), 0 4px 24px 0 rgba(255, 75, 43, 0.15);
+  }
 }
 
 @keyframes float {
