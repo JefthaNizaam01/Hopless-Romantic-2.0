@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Heart, Users, MessageCircle, BookHeart, Calendar, Coffee, Sparkles, Music, Mail, Star, Zap } from "lucide-react";
+import { Heart, Users, MessageCircle, BookHeart, Calendar, Coffee, Sparkles, Music, Mail, Star, Zap, LogOut, User } from "lucide-react";
 import { LoveLanguageQuiz } from "@/components/LoveLanguageQuiz";
 import { ProfileCreation } from "@/components/ProfileCreation";
 import { DeepConversations } from "@/components/DeepConversations";
@@ -17,6 +18,7 @@ import { DailyLoveLetters } from "@/components/DailyLoveLetters";
 import { SpecialFeatures } from "@/components/SpecialFeatures";
 import { Navigation, DesktopNavigation } from "@/components/Navigation";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
+import { useAuth } from "@/hooks/useAuth";
 import React from "react"; // Added missing import for React
 
 const Index = () => {
@@ -24,6 +26,27 @@ const Index = () => {
   const [userLevel, setUserLevel] = useState<'loverboy' | 'lovergirl' | null>('lovergirl');
   const [showIntro, setShowIntro] = useState(true); // Show intro slides for first-time users
   const [introIndex, setIntroIndex] = useState(0);
+  const navigate = useNavigate();
+  const { user, loading, signOut } = useAuth();
+
+  // Redirect to auth if not authenticated and trying to access protected features
+  useEffect(() => {
+    if (!loading && !user && activeSection !== 'home') {
+      setActiveSection('home');
+    }
+    // Skip intro for authenticated users
+    if (user && showIntro) {
+      setShowIntro(false);
+    }
+  }, [user, loading, activeSection, showIntro]);
+
+  const handleSectionChange = (section: string) => {
+    if (!user && section !== 'home') {
+      navigate('/auth');
+      return;
+    }
+    setActiveSection(section);
+  };
 
   const renderActiveSection = () => {
     switch (activeSection) {
@@ -52,7 +75,7 @@ const Index = () => {
       case 'love-letters':
         return <DailyLoveLetters />;
       case 'special':
-        return <SpecialFeatures onSectionChange={setActiveSection} />;
+        return <SpecialFeatures onSectionChange={handleSectionChange} />;
       default:
         return <HeroSection />;
     }
@@ -147,28 +170,28 @@ const Index = () => {
                   title="Discover"
                   description="Find your soulmate"
                   gradient="from-red-400 to-pink-500"
-                  onClick={() => setActiveSection('discovery')}
+                  onClick={() => handleSectionChange('discovery')}
                 />
                 <FeatureCard
                   icon={<Users className="w-8 h-8" />}
                   title="Matches"
                   description="Your perfect matches"
                   gradient="from-purple-400 to-indigo-500"
-                  onClick={() => setActiveSection('matches')}
+                  onClick={() => handleSectionChange('matches')}
                 />
                 <FeatureCard
                   icon={<MessageCircle className="w-8 h-8" />}
                   title="Messages"
                   description="Romantic conversations"
                   gradient="from-blue-400 to-cyan-500"
-                  onClick={() => setActiveSection('messages')}
+                  onClick={() => handleSectionChange('messages')}
                 />
                 <FeatureCard
                   icon={<Calendar className="w-8 h-8" />}
                   title="Events"
                   description="Magical gatherings"
                   gradient="from-green-400 to-emerald-500"
-                  onClick={() => setActiveSection('events')}
+                  onClick={() => handleSectionChange('events')}
                 />
               </div>
 
@@ -227,16 +250,28 @@ const Index = () => {
                 </Card>
               </div>
 
-              <Button 
-                onClick={() => setActiveSection('discovery')}
-                className="btn-primary text-xl px-12 py-4 group relative overflow-hidden"
-              >
-                <span className="relative z-10 flex items-center">
-                  Start Finding Love
-                  <Heart className="w-6 h-6 ml-3 group-hover:animate-pulse" />
-                </span>
-                <div className="absolute inset-0 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              </Button>
+              <div className="flex flex-col sm:flex-row gap-4 items-center">
+                <Button 
+                  onClick={() => handleSectionChange('discovery')}
+                  className="btn-primary text-xl px-12 py-4 group relative overflow-hidden"
+                >
+                  <span className="relative z-10 flex items-center">
+                    Start Finding Love
+                    <Heart className="w-6 h-6 ml-3 group-hover:animate-pulse" />
+                  </span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                </Button>
+                
+                {!user && (
+                  <Button 
+                    onClick={() => navigate('/auth')}
+                    variant="outline"
+                    className="text-lg px-8 py-3"
+                  >
+                    Sign In
+                  </Button>
+                )}
+              </div>
             </div>
           )}
 
@@ -406,10 +441,7 @@ const Index = () => {
                     {idx === introSlides.length - 1 && (
                       <Button
                         className="btn-primary px-8 py-3 text-lg mt-6"
-                        onClick={() => {
-                          setShowIntro(false);
-                          setActiveSection('profile');
-                        }}
+                        onClick={() => navigate('/auth')}
                       >
                         Get Started
                       </Button>
@@ -452,13 +484,30 @@ const Index = () => {
               <h1 className="text-xl font-playfair font-bold text-gradient">
                 Hopeless Romantic
               </h1>
-              <Button 
-                onClick={() => setActiveSection('home')} 
-                className="btn-secondary md:hidden"
-                size="sm"
-              >
-                Home
-              </Button>
+              <div className="flex items-center gap-2">
+                {user && (
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm text-slate-600 hidden sm:block">
+                      {user.email}
+                    </span>
+                    <Button 
+                      onClick={signOut}
+                      variant="ghost"
+                      size="sm"
+                      className="text-slate-600 hover:text-slate-800"
+                    >
+                      <LogOut className="w-4 h-4" />
+                    </Button>
+                  </div>
+                )}
+                <Button 
+                  onClick={() => setActiveSection('home')} 
+                  className="btn-secondary md:hidden"
+                  size="sm"
+                >
+                  Home
+                </Button>
+              </div>
             </div>
           )}
 
